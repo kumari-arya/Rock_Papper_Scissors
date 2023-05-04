@@ -1,94 +1,75 @@
-
-console.log("Hello");
-function playRound(playerSelection_, computerSelection_) {
-  // your code here!
-  playerSelection = playerSelection_.toLowerCase();
-  computerSelection = computerSelection_.toLowerCase();
-  if(playerSelection == "rock"){
-    if(computerSelection == "rock"){
-        console.log("tie");
-        return "None";
+function playRound(playerSelection, computerSelection) {
+  playerSelection = playerSelection.toLowerCase();
+  computerSelection = computerSelection.toLowerCase();
+  if (playerSelection === "rock") {
+    if (computerSelection === "rock") {
+      return "None";
+    } else if (computerSelection === "papper") {
+      return "Lose";
+    } else {
+      return "Win";
     }
-    else if(computerSelection == "papper"){
-        console.log("Lose");
-        return "Lose";
-        //computer_count++;
+  } else if (playerSelection === "papper") {
+    if (computerSelection === "papper") {
+      return "None";
+    } else if (computerSelection === "rock") {
+      return "Win";
+    } else {
+      return "Lose";
     }
-    else{
-        console.log("Win");
-        return "Win";
-        //player_count++;
+  } else {
+    if (computerSelection === "papper") {
+      return "Win";
+    } else if (computerSelection === "rock") {
+      return "Lose";
+    } else {
+      return "None";
     }
-
   }
-  else if(playerSelection == "papper"){
-   if(computerSelection == "papper"){
-    console.log("tie");
-    return "None";
-   }
-   else if(computerSelection == "rock"){
-    console.log("Win");
-    return "Win";
-    //player_count++;
-   }
-   else{
-    console.log("Lose");
-    return "Lose";
-    //computer_count++;
-   }
-  }
-  else{
-   if(computerSelection == "papper"){
-    console.log("Win");
-    return "Win";
-    //player_count++;
-   }
-   else if(computerSelection == "rock"){
-    console.log("Lose");
-    return "Lose";
-    //computer_count++;
-   }
-   else{
-    console.log("tie");
-    return "None";
-   }
-  }
-
 }
-let choices = ['Rock', 'Papper', 'Scissors'];
-function getComputerChoice(){
-    let result = choices[Math.floor(Math.random() * choices.length)];
-    return result;
+const choices = ["Rock", "Papper", "Scissors"];
+function getComputerChoice() {
+  return choices[Math.floor(Math.random() * choices.length)];
 }
-let computerSelection = getComputerChoice();
-//console.log(playRound(playerSelection, computerSelection));
 
 function game() {
-  let computer_count = 0;
-let player_count = 0;
+  let computerCount = 0;
+  let playerCount = 0;
   for (let i = 0; i < 5; i++) {
-    let computerSelection = getComputerChoice();
-    let playerSelection = prompt("Choose any of them:- Rock/Paper/Scissors",'');
-    let res = playRound(playerSelection, computerSelection);
-    if(res == "Lose")computer_count++;
-    if(res == "Win")player_count++;
+    const computerSelection = getComputerChoice();
+    const playerSelection = prompt(
+      "Choose any of them:- Rock/Paper/Scissors",
+      ""
+    );
+    const res = playRound(playerSelection, computerSelection);
+    switch (res) {
+      case "Lose":
+        computerCount++;
+        break;
+      case "Win":
+        playerCount++;
+        break;
+      default:
+    }
   }
-  let player = document.getElementById("player");
+  const player = document.getElementById("player");
   player.innerHTML = "";
-  player.innerHTML = `Player Score is ${player_count}`;
+  player.innerHTML = `Player Score is ${playerCount}`;
 
-  let computer = document.getElementById("computer");
-  computer.textContent = `Computer Score is ${computer_count}`;
-  let Score = document.getElementById("player-score");
+  const computer = document.getElementById("computer");
+  computer.textContent = `Computer Score is ${computerCount}`;
+  let score = document.getElementById("player-score");
 
-  if(computer_count == player_count){
-      Score.textContent = `Game is Draw!`
+  if (computerCount == playerCount) {
+    score.textContent = "Game is Draw!";
+  } else if (computerCount > playerCount) {
+    score.textContent = `You lose the game against computer by ${
+      computerCount - playerCount
+    }`;
+  } else {
+    score.textContent = `You won the game against computer by ${
+      playerCount - computerCount
+    }`;
   }
-  else if(computer_count > player_count){
-    Score.textContent = `You lose the game against computer by ${computer_count-player_count}`;
-}
-else{
-  Score.textContent = `You won the game against computer by ${player_count-computer_count}`;
-}
 }
 game();
