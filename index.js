@@ -1,30 +1,47 @@
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
-  if (playerSelection === "rock") {
-    if (computerSelection === "rock") {
-      return "None";
-    } else if (computerSelection === "papper") {
-      return "Lose";
-    } else {
-      return "Win";
-    }
-  } else if (playerSelection === "papper") {
-    if (computerSelection === "papper") {
-      return "None";
-    } else if (computerSelection === "rock") {
-      return "Win";
-    } else {
-      return "Lose";
-    }
-  } else {
-    if (computerSelection === "papper") {
-      return "Win";
-    } else if (computerSelection === "rock") {
-      return "Lose";
-    } else {
-      return "None";
-    }
+  switch (playerSelection) {
+    case "rock":
+      switch (computerSelection) {
+        case "rock": {
+          return "None";
+        }
+        case "papper": {
+          return "Lose";
+        }
+        default: {
+          return "Win";
+        }
+      }
+
+    case "papper":
+      switch (computerSelection) {
+        case "rock": {
+          return "Win";
+        }
+        case "papper": {
+          return "None";
+        }
+        default: {
+          return "Lose";
+        }
+      }
+
+    case "scissors":
+      switch (computerSelection) {
+        case "rock": {
+          return "Lose";
+        }
+        case "papper": {
+          return "Win";
+        }
+        default: {
+          return "None";
+        }
+      }
+
+    default:
   }
 }
 const choices = ["Rock", "Papper", "Scissors"];
@@ -58,7 +75,7 @@ function game() {
 
   const computer = document.getElementById("computer");
   computer.textContent = `Computer Score is ${computerCount}`;
-  let score = document.getElementById("player-score");
+  const score = document.getElementById("player-score");
 
   if (computerCount == playerCount) {
     score.textContent = "Game is Draw!";
